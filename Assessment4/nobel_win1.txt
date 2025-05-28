@@ -1,0 +1,101 @@
+step1 Create Nobel_win tabel
+
+CREATE TABLE Nobel_win (
+    year INT,
+    subject VARCHAR(100),
+    winner VARCHAR(255),
+    country VARCHAR(100),
+    category VARCHAR(100)
+);
+
+step2 Insert data
+
+INSERT INTO Nobel_win (year, subject, winner, country, category) VALUES
+(1970, 'Physics', 'Hannes Alfven', 'Sweden', 'Scientist'),
+(1970, 'Physics', 'Louis Neel', 'France', 'Scientist'),
+(1970, 'Chemistry', 'Luis Federico Leloir', 'Argentina', 'Scientist'),
+(1970, 'Medicine', 'Ulf von Euler', 'Sweden', 'Scientist'),
+(1970, 'Medicine', 'Bernard Katz', 'Germany', 'Scientist'),
+(1970, 'Literature', 'Aleksandr Solzhenitsyn', 'Russia', 'Writer'),
+(1970, 'Peace', 'Norman Borlaug', 'USA', 'Scientist'),
+(1971, 'Physics', 'Dennis Gabor', 'UK', 'Scientist'),
+(1971, 'Chemistry', 'Gerhard Herzberg', 'Canada', 'Scientist'),
+(1971, 'Medicine', 'Earl Sutherland', 'USA', 'Scientist'),
+(1971, 'Literature', 'Pablo Neruda', 'Chile', 'Writer'),
+(1971, 'Peace', 'Willy Brandt', 'Germany', 'Prime Minister'),
+(1972, 'Physics', 'John Bardeen', 'USA', 'Scientist'),
+(1972, 'Physics', 'Leon Cooper', 'USA', 'Scientist'),
+(1972, 'Physics', 'Robert Schrieffer', 'USA', 'Scientist'),
+(1972, 'Chemistry', 'Christian Anfinsen', 'USA', 'Scientist'),
+(1972, 'Chemistry', 'Stanford Moore', 'USA', 'Scientist'),
+(1972, 'Chemistry', 'William Stein', 'USA', 'Scientist'),
+(1973, 'Physics', 'Leo Esaki', 'Japan', 'Scientist'),
+(1973, 'Peace', 'Henry Kissinger', 'USA', 'Prime Minister'),
+(1973, 'Peace', 'Le Duc Tho', 'Vietnam', 'Prime Minister'),
+(1974, 'Physics', 'Martin Ryle', 'UK', 'Scientist'),
+(1974, 'Physics', 'Antony Hewish', 'UK', 'Scientist'),
+(1974, 'Chemistry', 'Paul Flory', 'USA', 'Scientist'),
+(1974, 'Medicine', 'Albert Claude', 'Belgium', 'Scientist'),
+(1974, 'Medicine', 'Christian de Duve', 'Belgium', 'Scientist'),
+(1974, 'Medicine', 'George Palade', 'Romania', 'Scientist'),
+(1974, 'Literature', 'Eyvind Johnson', 'Sweden', 'Writer'),
+(1974, 'Literature', 'Harry Martinson', 'Sweden', 'Writer'),
+(1975, 'Peace', 'Andrei Sakharov', 'Russia', 'Scientist'),
+(1977, 'Chemistry', 'Ilya Prigogine', 'Belgium', 'Scientist'),
+(1978, 'Peace', 'Menachem Begin', 'Israel', 'Prime Minister'),
+(1979, 'Chemistry', 'Herbert C. Brown', 'USA', 'Scientist'),
+(1979, 'Chemistry', 'Georg Wittig', 'Germany', 'Scientist'),
+(1980, 'Physics', 'James Cronin', 'USA', 'Scientist'),
+(1980, 'Physics', 'Val Fitch', 'USA', 'Scientist'),
+(1980, 'Literature', 'Czeslaw Milosz', 'Poland', 'Writer'),
+(1987, 'Economics', 'Robert Solow', 'USA', 'Economist'),
+(1994, 'Literature', 'Kenzaburo Oe', 'Japan', 'Linguist');
+
+Q-1 Nobel price winner of the year 1970
+
+SELECT year, subject, winner
+FROM Nobel_win
+WHERE year = 1970;
+
+Q-2 Chemistry winners from 1965 to 1975
+
+SELECT year, subject, winner, country
+FROM Nobel_win
+WHERE subject = 'Chemistry'
+AND year BETWEEN 1965 AND 1975;
+
+Q-3 Winners whose name starts with ‘Louis’
+
+SELECT year, subject, winner, country
+FROM Nobel_win
+WHERE winner LIKE 'Louis%';
+
+Q-4 Subjects not starting with ‘P’
+Ordered by year DESC, winner ASC
+
+SELECT year, subject, winner
+FROM Nobel_win
+WHERE subject NOT LIKE 'P%'
+ORDER BY year DESC, winner ASC;
+
+Q-5 Details of 1970 winners with special ordering
+Order by subject ascending, but ‘Chemistry’ and ‘Economics’ last
+
+
+SELECT year, subject, winner, country, category
+FROM Nobel_win
+WHERE year = 1970
+ORDER BY 
+    CASE 
+        WHEN subject IN ('Chemistry', 'Economics') THEN 1
+        ELSE 0
+    END,
+    subject ASC;
+
+
+
+
+
+
+
+
