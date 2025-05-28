@@ -1,0 +1,20 @@
+Lab 3: Drop the publishers Table After Verifying Its Structure
+
+1. Verify the structure of the publishers table
+
+DESCRIBE publishers;
+
+2. Drop the publishers table
+
+DROP TABLE publishers;
+
+ Lab 4: Backup the members Table and Then Drop the Original
+
+1. Create a backup of the members table
+
+CREATE TABLE members_backup AS
+SELECT * FROM members;
+
+2. Drop the original members table
+
+DROP TABLE members;

@@ -1,0 +1,71 @@
+
+Lab 3: Perform a transaction that includes inserting a new member, setting a SAVEPOINT, and rolling back to the savepoint after making updates.
+
+BEGIN
+  -- Step 1: Insert a new member
+  INSERT INTO members (member_id, member_name, date_of_membership, email)
+  VALUES (201, 'Alice Johnson', TO_DATE('2024-08-15', 'YYYY-MM-DD'), 'alice.johnson@example.com');
+
+  -- Step 2: Set a SAVEPOINT
+  SAVEPOINT after_insert;
+
+  -- Step 3: Make an update (will be rolled back)
+  UPDATE members
+  SET email = 'updated.email@example.com'
+  WHERE member_id = 201;
+
+  -- Optional: Display message before rollback
+  DBMS_OUTPUT.PUT_LINE('Email updated temporarily... now rolling back.');
+
+  -- Step 4: Rollback to SAVEPOINT
+  ROLLBACK TO after_insert;
+
+  -- Commit the insert
+  COMMIT;
+
+  DBMS_OUTPUT.PUT_LINE('Transaction complete: New member inserted, email update rolled back.');
+EXCEPTION
+  WHEN OTHERS THEN
+    ROLLBACK;
+    DBMS_OUTPUT.PUT_LINE('Error occurred: ' || SQLERRM);
+END;
+
+Lab 4: Use COMMIT after successfully inserting multiple books into the books table, then use ROLLBACK to undo a set of changes made after a savepoint.
+
+
+-- Step 1: Insert multiple books
+  INSERT INTO books (book_id, title, author, publisher, year_of_publication, price)
+  VALUES (301, 'SQL Mastery', 'Jane Doe', 'TechPress', 2023, 89.99);
+
+  INSERT INTO books (book_id, title, author, publisher, year_of_publication, price)
+  VALUES (302, 'PL/SQL Essentials', 'John Smith', 'CodeWorld', 2022, 74.50);
+
+  -- Step 2: Commit the successful insertions
+  COMMIT;
+  DBMS_OUTPUT.PUT_LINE('Books inserted and committed.');
+
+  -- Step 3: Make additional changes
+  UPDATE books
+  SET price = price + 5
+  WHERE year_of_publication < 2023;
+
+  -- Step 4: Set SAVEPOINT
+  SAVEPOINT price_increase;
+
+  -- Step 5: Further updates that will be rolled back
+  UPDATE books
+  SET title = 'Temporary Title'
+  WHERE book_id = 302;
+
+  -- Step 6: Roll back to SAVEPOINT (undo the title change)
+  ROLLBACK TO price_increase;
+  DBMS_OUTPUT.PUT_LINE('Rolled back to savepoint. Title change undone.');
+
+  -- Final commit
+  COMMIT;
+  DBMS_OUTPUT.PUT_LINE('Final changes committed.');
+EXCEPTION
+  WHEN OTHERS THEN
+    ROLLBACK;
+    DBMS_OUTPUT.PUT_LINE('Error occurred: ' || SQLERRM);
+END;

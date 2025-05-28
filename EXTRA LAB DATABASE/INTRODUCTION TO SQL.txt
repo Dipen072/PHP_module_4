@@ -1,0 +1,49 @@
+Lab 3: Create a database called library_db and a table books with columns: book_id, title, author, publisher, year_of_publication, and price. Insert five records into the table.
+
+
+
+1.CREATE DATABASE 
+library_db;
+
+
+2.Create the books table
+
+CREATE TABLE books (
+    book_id INT PRIMARY KEY,
+    title VARCHAR(100),
+    author VARCHAR(100),
+    publisher VARCHAR(100),
+    year_of_publication INT,
+    price DECIMAL(8, 2)
+);
+
+3. Insert five records
+INSERT INTO books (book_id, title, author, publisher, year_of_publication, price)
+VALUES
+(1, 'To Kill a Mockingbird', 'Harper Lee', 'J.B. Lippincott & Co.', 1960, 12.99),
+(2, '1984', 'George Orwell', 'Secker & Warburg', 1949, 9.99),
+(3, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Charles Scribner’s Sons', 1925, 10.50),
+(4, 'Pride and Prejudice', 'Jane Austen', 'T. Egerton', 1813, 8.75),
+(5, 'The Catcher in the Rye', 'J.D. Salinger', 'Little, Brown and Company', 1951, 
+
+
+Lab 4: Create a table members in library_db with columns: member_id, member_name, date_of_membership, and email. Insert five records into this table
+
+1. Create the members table
+
+CREATE TABLE members (
+    member_id INT PRIMARY KEY,
+    member_name VARCHAR(100),
+    date_of_membership DATE,
+    email VARCHAR(100)
+);
+
+2.Insert five records into members
+
+INSERT INTO members (member_id, member_name, date_of_membership, email)
+VALUES
+(101, 'Alice Johnson', '2023-01-15', 'alice.johnson@example.com'),
+(102, 'Bob Smith', '2023-03-10', 'bob.smith@example.com'),
+(103, 'Charlie Brown', '2023-06-20', 'charlie.brown@example.com'),
+(104, 'Diana Prince', '2023-09-05', 'diana.prince@example.com'),
+(105, 'Ethan Hunt', '2023-11-30', 'ethan.hunt@example.com');

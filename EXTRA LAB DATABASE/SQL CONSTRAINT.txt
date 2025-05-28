@@ -1,0 +1,26 @@
+Lab 3: Add a CHECK constraint to ensure that the price of books in the books table is greater than 0.
+
+CREATE TABLE books (
+    book_id INT PRIMARY KEY,
+    title VARCHAR(100),
+    author VARCHAR(100),
+    publisher VARCHAR(100),
+    year_of_publication INT,
+    price DECIMAL(8, 2) CHECK (price > 0)
+);
+
+
+ALTER TABLE books
+ADD CONSTRAINT check_price_positive CHECK (price > 0);
+
+
+
+Lab 4: Modify the members table to add a UNIQUE constraint on the email column, ensuring that each member has a unique email address.
+
+ALTER TABLE members
+ADD CONSTRAINT unique_email UNIQUE (email);
+
+SELECT email, COUNT(*)
+FROM members
+GROUP BY email
+HAVING COUNT(*) > 1;

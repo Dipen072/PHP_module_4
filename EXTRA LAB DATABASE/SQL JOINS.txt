@@ -1,0 +1,11 @@
+Lab 3: Perform an INNER JOIN between books and authors tables to display the title of books and their respective authors' names. 
+
+SELECT b.title, a.first_name, a.last_name
+FROM books b
+INNER JOIN authors a ON b.author = CONCAT(a.first_name, ' ', a.last_name);
+
+Lab 4: FULL OUTER JOIN to retrieve all records from both tables
+
+SELECT b.title, a.first_name, a.last_name
+FROM books b
+FULL OUTER JOIN authors a ON b.author = CONCAT(a.first_name, ' ', a.last_name);

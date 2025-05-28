@@ -1,0 +1,13 @@
+Lab 3: Retrieve all members who joined the library before 2022. Use appropriate SQL syntax with WHERE and ORDER BY.
+
+SELECT * 
+FROM members
+WHERE date_of_membership < '2022-01-01'
+ORDER BY date_of_membership ASC;
+
+Lab 4: Write SQL queries to display the titles of books published by a specific author. Sort the results by year_of_publication in descending order
+
+SELECT title
+FROM books
+WHERE author = 'George Orwell'
+ORDER BY year_of_publication DESC;

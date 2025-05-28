@@ -1,0 +1,61 @@
+Lab 3: Write a PL/SQL block using an explicit cursor to fetch and display all records from the members table.
+
+DECLARE
+  -- Define the cursor
+  CURSOR member_cursor IS
+    SELECT member_id, member_name, date_of_membership, email
+    FROM members;
+
+  -- Define a record to hold each row fetched from the cursor
+  v_member_record member_cursor%ROWTYPE;
+BEGIN
+  -- Open the cursor
+  OPEN member_cursor;
+
+  -- Loop through the result set
+  LOOP
+    FETCH member_cursor INTO v_member_record;
+    EXIT WHEN member_cursor%NOTFOUND;
+
+    -- Display member details
+    DBMS_OUTPUT.PUT_LINE('Member ID        : ' || v_member_record.member_id);
+    DBMS_OUTPUT.PUT_LINE('Name             : ' || v_member_record.member_name);
+    DBMS_OUTPUT.PUT_LINE('Date of Membership: ' || v_member_record.date_of_membership);
+    DBMS_OUTPUT.PUT_LINE('Email            : ' || v_member_record.email);
+    DBMS_OUTPUT.PUT_LINE('-----------------------------');
+  END LOOP;
+
+  -- Close the cursor
+  CLOSE member_cursor;
+END;
+
+
+Lab 4: Create a cursor to retrieve books by a particular author and display their titles.
+
+DECLARE
+  -- Specify the author you want to filter by
+  v_author_name books.author%TYPE := 'J.K. Rowling';
+
+  -- Cursor to retrieve books by the specified author
+  CURSOR books_by_author IS
+    SELECT title
+    FROM books
+    WHERE author = v_author_name;
+
+  -- Variable to hold each title
+  v_title books.title%TYPE;
+BEGIN
+  -- Open and fetch from the cursor
+  OPEN books_by_author;
+
+  LOOP
+    FETCH books_by_author INTO v_title;
+    EXIT WHEN books_by_author%NOTFOUND;
+
+    -- Display the title
+    DBMS_OUTPUT.PUT_LINE('Title: ' || v_title);
+  END LOOP;
+
+  -- Close the cursor
+  CLOSE books_by_author;
+END;

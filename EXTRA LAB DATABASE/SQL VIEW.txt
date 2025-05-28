@@ -1,0 +1,20 @@
+Lab 3: Create a view to show only the title, author, and price of books from the books table.
+
+CREATE VIEW book_summary AS
+SELECT title, author, price
+FROM books;
+
+How to use the view:
+
+SELECT * FROM book_summary;
+
+Lab 4: Create a view to display members who joined before 2020
+
+CREATE VIEW members_before_2020 AS
+SELECT *
+FROM members
+WHERE date_of_membership < '2020-01-01';
+
+How to use the view:
+
+SELECT * FROM members_before_2020;

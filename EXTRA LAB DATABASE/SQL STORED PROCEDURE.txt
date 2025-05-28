@@ -1,0 +1,28 @@
+Lab 3: Write a stored procedure to retrieve all books by a particular author.
+
+DELIMITER //
+
+CREATE PROCEDURE GetBooksByAuthor(IN author_name VARCHAR(255))
+BEGIN
+    SELECT * 
+    FROM books
+    WHERE author = author_name;
+END //
+
+DELIMITER ;
+CALL GetBooksByAuthor('Jane Austen');
+
+Lab 4: Write a stored procedure that takes book_id as an argument and returns the price of the book
+
+DELIMITER //
+
+CREATE PROCEDURE GetBookPrice(IN input_book_id INT, OUT book_price DECIMAL(10,2))
+BEGIN
+    SELECT price INTO book_price
+    FROM books
+    WHERE book_id = input_book_id;
+END //
+
+DELIMITER ;
+CALL GetBookPrice(3, @price);
+SELECT @price;

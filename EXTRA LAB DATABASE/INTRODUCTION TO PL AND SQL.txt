@@ -1,0 +1,32 @@
+Lab 3: Write a PL/SQL block to insert a new book into the books table and display a confirmation message.
+
+DECLARE
+  v_book_id books.book_id%TYPE := 10; -- example book_id
+  v_title books.title%TYPE := 'New Book Title';
+  v_author books.author%TYPE := 'New Author';
+  v_publisher books.publisher%TYPE := 'New Publisher';
+  v_year_of_publication books.year_of_publication%TYPE := 2025;
+  v_price books.price%TYPE := 49.99;
+  v_genre books.genre%TYPE := 'Fiction';
+BEGIN
+  INSERT INTO books (book_id, title, author, publisher, year_of_publication, price, genre)
+  VALUES (v_book_id, v_title, v_author, v_publisher, v_year_of_publication, v_price, v_genre);
+
+  COMMIT;
+
+  DBMS_OUTPUT.PUT_LINE('Book "' || v_title || '" inserted successfully with ID ' || v_book_id);
+EXCEPTION
+  WHEN OTHERS THEN
+    ROLLBACK;
+    DBMS_OUTPUT.PUT_LINE('Error inserting book: ' || SQLERRM);
+END;
+
+Lab 4: Write a PL/SQL block to display the total number of books in the books table.
+
+DECLARE
+  v_total_books NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO v_total_books FROM books;
+
+  DBMS_OUTPUT.PUT_LINE('Total number of books: ' || v_total_books);
+END;

@@ -1,0 +1,42 @@
+Lab 3: Write a PL/SQL block using IF-THEN-ELSE to check if a book's price is above $100 and print a message accordingly
+
+DECLARE
+  v_book_id  books.book_id%TYPE := 101;  -- Example book ID
+  v_price    books.price%TYPE;
+BEGIN
+  -- Retrieve the price of the book with the given ID
+  SELECT price INTO v_price
+  FROM books
+  WHERE book_id = v_book_id;
+
+  -- Conditional check using IF-THEN-ELSE
+  IF v_price > 100 THEN
+    DBMS_OUTPUT.PUT_LINE('The book price is above $100.');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('The book price is $100 or below.');
+  END IF;
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    DBMS_OUTPUT.PUT_LINE('No book found with the specified ID.');
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
+END;
+
+Lab 4: Use a FOR LOOP in PL/SQL to display the details of all books one by one
+
+DECLARE
+  -- Cursor to select all book details
+  CURSOR book_cursor IS
+    SELECT book_id, title, author, price
+    FROM books;
+
+BEGIN
+  -- Loop through each row returned by the cursor
+  FOR book_rec IN book_cursor LOOP
+    DBMS_OUTPUT.PUT_LINE('Book ID   : ' || book_rec.book_id);
+    DBMS_OUTPUT.PUT_LINE('Title     : ' || book_rec.title);
+    DBMS_OUTPUT.PUT_LINE('Author    : ' || book_rec.author);
+    DBMS_OUTPUT.PUT_LINE('Price     : $' || book_rec.price);
+    DBMS_OUTPUT.PUT_LINE('-----------------------------');
+  END LOOP;
+END;

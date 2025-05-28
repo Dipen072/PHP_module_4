@@ -1,0 +1,59 @@
+Lab 3: Create a trigger to automatically update the last_modified timestamp of the books table whenever a record is updated.
+
+ALTER TABLE books
+ADD COLUMN last_modified TIMESTAMP NULL DEFAULT NULL;
+
+DELIMITER //
+
+CREATE TRIGGER update_books_last_modified
+BEFORE UPDATE ON books
+FOR EACH ROW
+BEGIN
+  SET NEW.last_modified = CURRENT_TIMESTAMP;
+END;
+//
+
+DELIMITER ;
+
+
+
+Lab 4: Create a trigger that inserts a log entry into a log_changes table whenever a DELETE operation is performed on the books table
+
+
+CREATE TABLE log_changes (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    book_id INT,
+    deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_by VARCHAR(100),   -- Optional: who performed the delete
+    details VARCHAR(255)       -- Optional: extra info
+);
+
+DELIMITER //
+
+CREATE TRIGGER trg_log_delete_books
+AFTER DELETE ON books
+FOR EACH ROW
+BEGIN
+    INSERT INTO log_changes (book_id, deleted_at, details)
+    VALUES (OLD.book_id, CURRENT_TIMESTAMP, CONCAT('Deleted book titled: ', OLD.title));
+END;
+//
+
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
