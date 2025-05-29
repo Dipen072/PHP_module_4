@@ -1,0 +1,59 @@
+Lab 1: Write a PL/SQL block using an explicit cursor to retrieve and display employee details.
+
+DECLARE
+    -- Define a cursor to select employee details
+    CURSOR emp_cursor IS
+        SELECT employee_id, name, department_id, salary FROM employees;
+
+    -- Record variable to hold a row fetched from the cursor
+    emp_record emp_cursor%ROWTYPE;
+BEGIN
+    -- Open the cursor
+    OPEN emp_cursor;
+
+    -- Loop through each row returned by the cursor
+    LOOP
+        FETCH emp_cursor INTO emp_record;
+        EXIT WHEN emp_cursor%NOTFOUND;
+
+        -- Display employee details
+        DBMS_OUTPUT.PUT_LINE('ID: ' || emp_record.employee_id ||
+                             ', Name: ' || emp_record.name ||
+                             ', Dept ID: ' || emp_record.department_id ||
+                             ', Salary: ' || emp_record.salary);
+    END LOOP;
+
+    -- Close the cursor
+    CLOSE emp_cursor;
+END;
+/
+
+Lab 2: Create a cursor to retrieve all courses and display them one by one.
+
+DECLARE
+    -- Define a cursor to select all courses
+    CURSOR course_cursor IS
+        SELECT course_id, course_name, instructor, credits FROM courses;
+
+    -- Record variable to hold a fetched course
+    course_record course_cursor%ROWTYPE;
+BEGIN
+    -- Open the cursor
+    OPEN course_cursor;
+
+    -- Loop through each course record
+    LOOP
+        FETCH course_cursor INTO course_record;
+        EXIT WHEN course_cursor%NOTFOUND;
+
+        -- Display course details
+        DBMS_OUTPUT.PUT_LINE('Course ID: ' || course_record.course_id ||
+                             ', Name: ' || course_record.course_name ||
+                             ', Instructor: ' || course_record.instructor ||
+                             ', Credits: ' || course_record.credits);
+    END LOOP;
+
+    -- Close the cursor
+    CLOSE course_cursor;
+END;
+/

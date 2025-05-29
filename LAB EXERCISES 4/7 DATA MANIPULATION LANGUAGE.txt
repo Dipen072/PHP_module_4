@@ -1,0 +1,19 @@
+Lab 1: Insert three records into the courses table using the INSERT command
+
+INSERT INTO courses (course_id, course_name, course_duration)
+VALUES
+(101, 'Mathematics', '1 semester'),
+(102, 'Physics', '1 semester'),
+(103, 'Chemistry', '1 semester');
+
+
+Lab 2: Update the course duration of a specific course using the UPDATE command
+
+UPDATE courses
+SET course_duration = '2 semesters'
+WHERE course_id = 102;
+
+Lab 3: Delete a course with a specific course_id from the courses table using the DELETE command
+
+DELETE FROM courses
+WHERE course_id = 103;

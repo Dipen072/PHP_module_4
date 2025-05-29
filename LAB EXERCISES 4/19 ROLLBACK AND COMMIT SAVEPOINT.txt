@@ -1,0 +1,48 @@
+Lab 1: Perform a transaction where you create a savepoint, insert records, then rollback to the savepoint.
+
+BEGIN
+    -- Insert first record
+    INSERT INTO employees (employee_id, name, department_id, salary)
+    VALUES (201, 'David', 2, 55000);
+
+    -- Create a savepoint after first insert
+    SAVEPOINT before_second_insert;
+
+    -- Insert second record
+    INSERT INTO employees (employee_id, name, department_id, salary)
+    VALUES (202, 'Emma', 3, 60000);
+
+    -- Rollback to the savepoint — this will undo Emma's insert but keep David's
+    ROLLBACK TO SAVEPOINT before_second_insert;
+
+    -- Optional: Commit to save changes so far
+    COMMIT;
+END;
+/
+
+Lab 2: Commit part of a transaction after using a savepoint and then rollback the remaining changes.
+
+BEGIN
+    -- Insert first record
+    INSERT INTO employees (employee_id, name, department_id, salary)
+    VALUES (301, 'Alice', 1, 70000);
+
+    -- Create savepoint after first insert
+    SAVEPOINT sp_after_alice;
+
+    -- Insert second record
+    INSERT INTO employees (employee_id, name, department_id, salary)
+    VALUES (302, 'Bob', 2, 65000);
+
+    -- Commit changes up to the savepoint (commits Alice's insert)
+    COMMIT;
+
+    -- Insert third record
+    INSERT INTO employees (employee_id, name, department_id, salary)
+    VALUES (303, 'Charlie', 3, 62000);
+
+    -- Rollback the last insert (Charlie), since the previous changes were committed
+    ROLLBACK;
+
+END;
+/

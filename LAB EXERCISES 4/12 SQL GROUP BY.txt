@@ -1,0 +1,24 @@
+Lab 1: Group employees by department and count the number of employees in each department using GROUP BY.
+
+
+SELECT 
+    d.department_name,
+    COUNT(e.employee_id) AS employee_count
+FROM 
+    departments d
+LEFT JOIN 
+    employees e ON d.department_id = e.department_id
+GROUP BY 
+    d.department_name;
+
+Lab 2: Use the AVG aggregate function to find the average salary of employees in each department
+
+SELECT 
+    d.department_name,
+    AVG(e.salary) AS average_salary
+FROM 
+    departments d
+LEFT JOIN 
+    employees e ON d.department_id = e.department_id
+GROUP BY 
+    d.department_name;

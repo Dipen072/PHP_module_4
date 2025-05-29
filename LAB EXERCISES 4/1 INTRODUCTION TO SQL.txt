@@ -1,0 +1,32 @@
+Lab 1: Create a new database named school_db and a table called students with the following columns: student_id, student_name, age, class, and address.
+
+CREATE DATABASE school_db;
+
+CREATE TABLE students (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(100),
+    age INT,
+    class VARCHAR(50),
+    address VARCHAR(255)
+);
+
+Lab 2: Insert 5 Records and Retrieve All
+
+INSERT INTO students (student_id, student_name, age, class, address) VALUES
+(1, 'Alice Johnson', 14, '8A', '123 Maple St'),
+(2, 'Bob Smith', 15, '9B', '456 Oak Ave'),
+(3, 'Charlie Lee', 13, '7C', '789 Pine Rd'),
+(4, 'Diana Prince', 14, '8A', '321 Elm St'),
+(5, 'Ethan Hunt', 15, '9B', '654 Cedar Blvd');
+
+-- Retrieve all records
+SELECT * FROM students;
+
+
+
+
+
+
+
+
+

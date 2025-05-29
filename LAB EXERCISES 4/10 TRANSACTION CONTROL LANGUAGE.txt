@@ -1,0 +1,54 @@
+Lab 1: Insert a few rows into the courses table and use COMMIT to save the changes.
+
+
+INSERT INTO courses (course_id, course_name, credits)
+VALUES (101, 'Database Systems', 3);
+
+INSERT INTO courses (course_id, course_name, credits)
+VALUES (102, 'Operating Systems', 4);
+
+INSERT INTO courses (course_id, course_name, credits)
+VALUES (103, 'Computer Networks', 3);
+
+COMMIT;
+
+Lab 2: Insert additional rows, then use ROLLBACK to undo the last insert operation.
+
+INSERT INTO courses (course_id, course_name, credits)
+VALUES (104, 'Artificial Intelligence', 3);
+
+INSERT INTO courses (course_id, course_name, credits)
+VALUES (105, 'Cybersecurity Fundamentals', 3);
+
+ROLLBACK;
+
+Lab 3: Create a SAVEPOINT before updating the courses table, and use it to roll back specific changes
+
+SET autocommit = 0;
+
+-- Step 1: Start with an update
+UPDATE courses
+SET credits = 4
+WHERE course_id = 101;
+
+-- Step 2: Create a SAVEPOINT before more updates
+SAVEPOINT before_second_update;
+
+-- Step 3: Perform a second update that you might want to undo
+UPDATE courses
+SET credits = 5
+WHERE course_id = 102;
+
+-- Step 4: Change your mind and roll back only the second update
+ROLLBACK TO SAVEPOINT before_second_update;
+
+-- Step 5: Commit the rest (only course_id 101 update will be saved)
+COMMIT;
+
+
+
+
+
+
+
+

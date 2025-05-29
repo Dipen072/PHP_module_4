@@ -1,0 +1,54 @@
+Lab 1: Create two tables: departments and employees. Perform an INNER JOIN to display employees along with their respective departments
+
+ Step 1: Create departments table
+
+CREATE TABLE departments (
+    department_id INT PRIMARY KEY,
+    department_name VARCHAR(100)
+);
+🔹 Step 2: Create employees table
+
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(100),
+    department_id INT,
+    FOREIGN KEY (department_id) REFERENCES departments(department_id)
+);
+🔹 Step 3: Insert sample data
+
+-- Insert into departments
+INSERT INTO departments (department_id, department_name) VALUES
+(1, 'Human Resources'),
+(2, 'Engineering'),
+(3, 'Marketing');
+
+-- Insert into employees
+INSERT INTO employees (employee_id, employee_name, department_id) VALUES
+(101, 'Alice Johnson', 1),
+(102, 'Bob Smith', 2),
+(103, 'Charlie Davis', 2),
+(104, 'Dana White', 3);
+🔹 Step 4: Perform INNER JOIN to get employees with departments
+
+SELECT 
+    employees.employee_id,
+    employees.employee_name,
+    departments.department_name
+FROM 
+    employees
+INNER JOIN 
+    departments ON employees.department_id = departments.department_id;
+
+
+Lab 2: Use a LEFT JOIN to show all departments, even those without employees
+
+SELECT 
+    d.department_id,
+    d.department_name,
+    e.employee_id,
+    e.name AS employee_name
+FROM 
+    departments d
+LEFT JOIN 
+    employees e ON d.department_id = e.department_id;
+

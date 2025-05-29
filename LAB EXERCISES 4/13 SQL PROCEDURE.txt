@@ -1,0 +1,48 @@
+Lab 1: Write a stored procedure to retrieve all employees from the employees table based on department.
+
+DELIMITER $$
+
+CREATE PROCEDURE GetEmployeesByDepartment(IN dept_id INT)
+BEGIN
+    SELECT 
+        employee_id,
+        name,
+        salary,
+        department_id
+    FROM 
+        employees
+    WHERE 
+        department_id = dept_id;
+END$$
+
+DELIMITER ;
+
+CALL GetEmployeesByDepartment(1);
+
+Lab 2: Write a stored procedure that accepts course_id as input and returns the course details.
+
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(100),
+    instructor VARCHAR(100),
+    credits INT
+);
+
+DELIMITER $$
+
+CREATE PROCEDURE GetCourseDetails(IN input_course_id INT)
+BEGIN
+    SELECT 
+        course_id,
+        course_name,
+        instructor,
+        credits
+    FROM 
+        courses
+    WHERE 
+        course_id = input_course_id;
+END$$
+
+DELIMITER ;
+
+CALL GetCourseDetails(101);

@@ -1,0 +1,24 @@
+Lab 1: Write a PL/SQL block to print the total number of employees from the employees table.
+
+DECLARE
+    emp_count NUMBER;
+BEGIN
+    SELECT COUNT(*) INTO emp_count FROM employees;
+    DBMS_OUTPUT.PUT_LINE('Total number of employees: ' || emp_count);
+END;
+/
+
+Lab 2: Create a PL/SQL block that calculates the total sales from an orders table
+
+DECLARE
+    total_sales NUMBER(15, 2);
+BEGIN
+    SELECT SUM(order_amount) INTO total_sales FROM orders;
+    
+    IF total_sales IS NULL THEN
+        total_sales := 0;
+    END IF;
+    
+    DBMS_OUTPUT.PUT_LINE('Total sales amount: $' || TO_CHAR(total_sales, 'FM999,999,999.00'));
+END;
+/
